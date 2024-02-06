@@ -137,6 +137,21 @@ public class RequestManager extends Thread {
                     tell("Invalid Admin Account");
                 }
             }
+            
+            case "UploadProductFile" -> {
+                ShopUser sellerUser = new ShopUser(), tmp;
+                sellerUser.readFromLine(request, 1);
+                Product product = productManager.getProduct(parts[6]);
+                String type = parts[7];
+                
+                if ((tmp = userManager.getUser(sellerUser)) != null && tmp.getPassword().equals(sellerUser.getPassword()) && product != null &&
+                        product.getSellerUsername().equals(sellerUser.getUsername())) {
+                    tell("UploadProductFile Successful");
+                    downloadFile(product.getFilePath(type));
+                } else {
+                    tell("Invalid Seller Username/Product doesn't exist");
+                }
+            }
         }
         
         disconnect();
