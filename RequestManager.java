@@ -152,6 +152,18 @@ public class RequestManager extends Thread {
                     tell("Invalid Seller Username/Product doesn't exist");
                 }
             }
+            
+            case "DownloadProductFile" -> {
+                Product product = productManager.getProduct(parts[1]);
+                String type = parts[2];
+                if (product != null) {
+                    uploadFile(product.getFilePath(type));
+                }
+            }
+            
+            default -> {
+                tell("UnknownRequest");
+            }
         }
         
         disconnect();
