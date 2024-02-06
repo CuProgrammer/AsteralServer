@@ -161,6 +161,15 @@ public class RequestManager extends Thread {
                 }
             }
             
+            case "GetSellerProducts" -> {
+                ShopUser seller;
+                if ((seller = userManager.getUser(parts[1])) != null && seller.getLevel() >= 1) {
+                    ArrayList<Product> results = productManager.getSellerProducts(parts[1]);
+                    for (Product result:results)
+                        tell(result);
+                }
+            }
+            
             default -> {
                 tell("UnknownRequest");
             }
