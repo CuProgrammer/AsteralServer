@@ -145,6 +145,16 @@ public class ProductManager {
             return false;
     }
     
+    public ArrayList<Product> getSellerProducts(String sellerUsername) {
+        ArrayList<Product> results = new ArrayList<>();
+        for (Product product:products) {
+            if (product.getSellerUsername().equals(sellerUsername))
+                results.add(product);
+        }
+        
+        return results;
+    }
+    
     public boolean addReview(Product product, Review review) {
         if ((product = getProduct(product)) == null)
                 return false;
