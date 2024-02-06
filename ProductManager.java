@@ -33,6 +33,16 @@ public class ProductManager {
             } catch (IOException e) {
                 System.err.println("ProducManager: Creating productBuffer file failed");
             }
+        File videos = new File("Videos");
+        File music = new File("Music");
+        File images = new File("Images");
+        
+        if (!videos.isDirectory())
+            videos.mkdir();
+        if (!music.isDirectory())
+            music.mkdir();
+        if (!images.isDirectory())
+            images.mkdir();
     }
     
     public void load() { /* load the products from file into the ArrayList */
