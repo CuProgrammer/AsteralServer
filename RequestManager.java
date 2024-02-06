@@ -120,6 +120,23 @@ public class RequestManager extends Thread {
                     tell("Invalid Reviewer Account");
                 }
             }
+            
+            case "UpdateUserStatus" -> {
+                ShopUser adminUser = new ShopUser(), tmp;
+                adminUser.readFromLine(request, 1);
+                if ((tmp = userManager.getUser(adminUser)) != null && tmp.getPassword().equals(adminUser.getPassword()) && tmp.getLevel() >= 2) {
+                    ShopUser subjectUser = userManager.getUser(parts[6]);
+                    int newLevel = Integer.parseInt(parts[7]);
+                    if (subjectUser != null) {
+                        subjectUser.setLevel(newLevel);
+                        tell(userManager.updateUser(subjectUser) ? "UpdateUserStatus Successful" : "Unknown Error");
+                    } else {
+                        tell("User doesn't exist");
+                    }
+                } else {
+                    tell("Invalid Admin Account");
+                }
+            }
         }
         
         disconnect();
