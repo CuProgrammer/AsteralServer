@@ -128,6 +128,14 @@ public class UserManager {
         return true;
     }
     
+    public boolean updateUser(ShopUser user) {
+        if (getUser(user) == null)
+            return false;
+        users.put(user.getUsername(), user);
+        writeUser2Buffer(user);
+        return true;
+    }
+    
     public boolean deleteUser(String username) {
         return deleteUser(new ShopUser(username, null, null, 0, 0));
     }
