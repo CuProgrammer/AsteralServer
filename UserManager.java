@@ -37,6 +37,11 @@ public class UserManager {
             }
     }
     
+    public boolean validate(String username, String password) {
+        ShopUser user = getUser(username);
+        return user != null && user.getPassword().equals(password);
+    }
+    
     public void load() { /* load the users from file into the ArrayList */
         try (BufferedReader reader = new BufferedReader(new FileReader(userDataPath))) {
             String line;
