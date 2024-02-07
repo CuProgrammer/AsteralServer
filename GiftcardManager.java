@@ -72,9 +72,12 @@ public class GiftcardManager {
         
         File tmp = new File("gtmp.txt");
         File giftcardData = new File(giftcardDataPath);
+        File giftcardBuffer = new File(giftcardBufferPath);
         try {
             giftcardData.delete();
             tmp.renameTo(giftcardData);
+            giftcardBuffer.delete();
+            giftcardBuffer.createNewFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
