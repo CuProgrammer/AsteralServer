@@ -95,4 +95,18 @@ public class GiftcardManager {
         }
         return keyString;
     }
+    
+    public double extractGiftcard(String keyString) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(giftcardBufferPath, true))) {
+            out.println(keyString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        if (giftcards.get(keyString) == null)
+            return 0;
+        double value = giftcards.get(keyString);
+        giftcards.put(keyString, 0.0);
+        return value;
+    }
 }
