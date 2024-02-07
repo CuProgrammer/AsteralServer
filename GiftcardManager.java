@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 public class GiftcardManager {
     private HashMap<String, Double> giftcards;
@@ -77,5 +78,21 @@ public class GiftcardManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public String generateGiftcard(double value) {
+        Random rand = new Random();
+        char[] keyCharray = new char[32];
+        
+        for (int i = 0; i < keyCharray.length; i++)
+            keyCharray[i] = (char) ('A' + rand.nextInt(26));
+        String keyString = new String(keyCharray);
+        giftcards.put(keyString, value);
+        try (PrintWriter out = new PrintWriter(new FileWriter(giftcardDataPath, true))) {
+            out.println(keyString + "\t" + value);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return keyString;
     }
 }
