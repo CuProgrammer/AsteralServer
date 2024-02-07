@@ -182,6 +182,18 @@ public class RequestManager extends Thread {
                         tell(result);
                 }
             }
+
+            case "ExtractGiftcard" -> {
+                ShopUser user = new ShopUser();
+                user.readFromLine(request, 1);
+                double amount;
+                if (userManager.validate(user.getUsername(), user.getPassword())) {
+                    userManager.increaseUserCredit(user, amount = giftcardManager.extractGiftcard(parts[6]));
+                    tell("ExtractGiftcard Successful", amount);
+                } else {
+                    tell("Invalid account");
+                }
+            }
             
             default -> {
                 tell("UnknownRequest");
