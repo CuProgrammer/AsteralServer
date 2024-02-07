@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class RequestManager extends Thread {
     private static ProductManager productManager;
     private static UserManager userManager;
+    private static GiftcardManager giftcardManager;
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
@@ -35,7 +36,10 @@ public class RequestManager extends Thread {
     public static void setUserManager(UserManager userManager) {
         RequestManager.userManager = userManager;
     }
-    
+
+    public static void setGiftcardManager(GiftcardManager giftcardManager) {
+        RequestManager.giftcardManager = giftcardManager;
+    }
     
     @Override
     public void run() {
@@ -72,6 +76,15 @@ public class RequestManager extends Thread {
                     tell("Login Successful", tmp);
                 else
                     tell("Incorrect username or password");
+            }
+            
+            case "GenerateGiftcard" -> {
+                ShopUser user = new ShopUser();
+                user.readFromLine(request, 1);
+                if (userManager.validate(user.getUsername(), user.getPassword()) && userManager.getUser(user).getLevel() >= 2)
+                    tell("GenerateGiftcard Successful", giftcardManager.generateGiftcard(Integer.parseInt(parts[6])));
+                else
+                    tell("Invalid Admin Account");
             }
             
             
