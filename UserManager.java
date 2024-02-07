@@ -113,6 +113,12 @@ public class UserManager {
             System.err.println("UserManager.writeUser2Buffer() : IOException");
         }
     }
+
+    public void increaseUserCredit(ShopUser user, double amount) {
+        user = getUser(user);
+        user.setCredit(user.getCredit() + amount);
+        writeUser2Buffer(user);
+    }
     
     public boolean addUser(ShopUser user) {
         if (users.get(user.getUsername()) != null)
