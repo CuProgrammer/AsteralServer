@@ -82,7 +82,7 @@ public class RequestManager extends Thread {
                 ShopUser user = new ShopUser();
                 user.readFromLine(request, 1);
                 if (userManager.validate(user.getUsername(), user.getPassword()) && userManager.getUser(user).getLevel() >= 2)
-                    tell("GenerateGiftcard Successful", giftcardManager.generateGiftcard(Integer.parseInt(parts[6])));
+                    tell("GenerateGiftcard Successful", giftcardManager.generateGiftcard(Double.parseDouble(parts[6])));
                 else
                     tell("Invalid Admin Account");
             }
